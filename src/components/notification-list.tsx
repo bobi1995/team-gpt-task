@@ -10,31 +10,31 @@ export const color_link = (type: string) => {
   switch (type) {
     case "platform-update":
       return {
-        color: "red",
+        color: "bg-red-300",
         link: "alert",
         text: "New features - see what’s new",
       };
     case "comment-tag":
       return {
-        color: "blue",
+        color: "bg-blue-300",
         link: "/comments",
         text: "tagged you in a comment",
       };
     case "access-granted":
       return {
-        color: "green",
+        color: "bg-green-300",
         link: "/chats",
         text: "shared a chat with you",
       };
     case "join-workspace":
       return {
-        color: "orange",
+        color: "bg-orange-300",
         link: "/workspace",
         text: "joined your workspace",
       };
     default:
       return {
-        color: "gray",
+        color: "bg-gray-300",
         link: "/",
         text: "",
       };
@@ -47,10 +47,13 @@ const NotificationLayout = ({
   notification: NotificationsDef;
 }) => {
   const { color, link, text } = color_link(notification.type);
+  // по някаква причина това(bgColor) не работи на PROD деплоймент и не мога да установя защо
+  //Обектите ми връщаха само цвят и спрямо read определях по-светъл/тъмен цвят.
   const bgColor = notification.read ? `bg-${color}-200` : `bg-${color}-400`;
+
   return (
     <div
-      className={`mb-2 p-2 border-b border-gray-200 ${bgColor} hover:cursor-pointer`}
+      className={`mb-2 p-2 border-b border-gray-200 ${color} hover:cursor-pointer`}
     >
       {link.startsWith("/") ? (
         <Link href={link}>
